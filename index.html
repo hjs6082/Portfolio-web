@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로그래머 OOO의 포트폴리오</title>
+    <!-- 스타일 시트 링크 -->
+    <link rel="stylesheet" href="https://s3.ap-northeast-2.amazonaws.com/materials.spartacodingclub.kr/easygpt/default.css">
+    <!-- Bootstrap 5 CSS 링크 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        @font-face {
+            font-family: 'JalnanGothic';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            /* Remove default margin */
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            /* Prevents overflow caused by pseudo-element */
+        }
+
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Images/HomeBackground.jpg');
+            background-size: cover;
+            filter: brightness(50%);
+            z-index: -1;
+            /* Ensure the background is behind the content */
+        }
+
+        #home .content {
+            color: white;
+            /* Set text color to white */
+            font-size: 2rem;
+            z-index: 1;
+            /* Ensure the text appears above the pseudo-element */
+            text-align: center;
+            /* Center the text horizontally */
+            white-space: nowrap;
+            /* Keep the text on a single line */
+        }
+
+        #about,
+        #portfolio {
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #about {
+            background-color: #3498db;
+        }
+
+        #portfolio {
+            background-color: white;
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        @import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap");
+
+        .typed {
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: .15em solid white;
+            /* Simulates the cursor */
+            font-family: "JalnanGothic", monospace;
+            animation: typing 2s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: white;
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .about-me-section,
+        .skills-section {
+            border: 1px solid black;
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            text-align: left;
+            /* 수정: 섹션 제목을 제외한 모든 텍스트를 왼쪽으로 정렬 */
+            border-radius: 15px;
+            color: black;
+            font-family: "JalanGothic";
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            color: black;
+            font-family: "JalanGothic";
+        }
+
+        .info-item img {
+            width: 50px;
+            /* 아이콘 크기 조절 */
+            margin-right: 20px;
+            /* 아이콘과 텍스트 사이의 간격 */
+        }
+
+        .text-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            /* 제목과 내용 사이의 간격 */
+        }
+
+        .content {
+            font-size: smaller;
+        }
+
+        .skills-section img {
+            width: 30%;
+            margin: 10px 5%;
+        }
+
+        /* 반응형 디자인을 위한 미디어 쿼리 */
+        @media (max-width: 768px) {
+
+            .about-me-section,
+            .skills-section {
+                width: 95%;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .info-item img {
+                margin-bottom: 10px;
+                /* 모바일 뷰에서 아이콘과 텍스트 사이 간격 조정 */
+            }
+
+            .skills-section img {
+                width: 80%;
+                margin: 10px auto;
+                /* 이미지를 중앙 정렬 */
+            }
+        }
+
+        .section-header h2,
+        .title,
+        .content,
+        .skills-section h2,
+        .skill-text {
+            font-weight: bold;
+            /* Makes the text bold */
+            font-family: 'JalnanGothic', Arial, sans-serif;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            /* Vertically center the items */
+            font-weight: bold;
+            /* Make the text bold */
+            color: black;
+            /* Set the text color to black */
+        }
+
+        .skill-item img {
+            width: auto;
+            /* Adjust based on your needs */
+            height: 80px;
+            /* Adjust the height to match your images */
+            margin-right: 20px;
+            /* Creates space between the image and the text */
+        }
+
+        .skill-text {
+            margin: 0;
+            /* Removes default margins */
+            font-size: 1.2rem;
+            /* Additional styling can be added here */
+        }
+
+        /* 카드 호버 효과 */
+        .card {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-img-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* 어두운 배경색 */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            /* 흰색 글자색 */
+            font-size: 1.5rem;
+        }
+
+        .card:hover .card-img-overlay {
+            opacity: 1;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .unity-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        /* 버튼 스타일 */
+        .btn-circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            /* 테두리 없애기 */
+            background-color: #ccc;
+            /* 회색 배경색 지정 */
+        }
+
+        .btn-circle.active {
+            width: 30px;
+            /* 선택된 버튼의 크기보다 약간 크게 */
+            height: 30px;
+            background-color: black;
+            /* 선택된 버튼의 배경색 지정 */
+        }
+
+        .modal-image-custom {
+            width: 500px;
+            /* 너비를 1280px로 고정 */
+            height: 300px;
+            /* 높이를 900px로 고정 */
+            object-fit: cover;
+            /* 이미지 비율을 유지하면서 영역을 채우기 위해 */
+        }
+
+        .modal-link-btn {
+            border: 2px solid #007bff;
+            /* 파란색 테두리 */
+            background-color: #fff;
+            /* 흰색 배경 */
+            color: #007bff;
+            /* 파란색 텍스트 */
+            text-align: left;
+            /* 텍스트 좌측 정렬 */
+            border-radius: 0;
+            /* 네모난 버튼 */
+            transition: background-color 0.3s, color 0.3s;
+            /* 스무스한 색상 전환 */
+        }
+
+        .modal-link-btn:hover {
+            background-color: #000000;
+            /* 마우스 오버 시 파란색 배경 */
+            color: #fff;
+            /* 마우스 오버 시 흰색 텍스트 */
+        }
+
+        .link-button {
+            border: 1px solid black;
+            background-color: white;
+            border-radius: 0;
+            /* 네모난 버튼 */
+            transition: background-color 0.3s ease;
+        }
+
+        .link-button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .portfolio-title {
+            text-align: center;
+            /* 가운데 정렬 */
+            font-family: 'JalnanGothic', sans-serif;
+            /* 폰트 적용 */
+            padding: 20px 0;
+            /* 상하 패딩으로 간격 조정 */
+            /*text-decoration: underline;*/
+            /* 글자에 밑줄 추가 */
+            font-size: 60px;
+            /* 폰트 크기 조정 */
+            margin-bottom: 20px;
+            /* 섹션 간 간격 조정 */
+            color: white;
+            /* 글자 내부 색상을 하얀색으로 설정 */
+            -webkit-text-stroke: 1px black;
+            /* 글자 테두리를 검은색으로 설정 (주의: 크로스 브라우저 호환성 문제가 있을 수 있음) */
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+            /* 글자 주변에 검은색 윤곽을 생성하여 테두리 효과를 줌 */
+        }
+
+        .line-above-cards {
+            border-top: 1px solid #000;
+            /* 굵기가 얇은 검은색 선 */
+            width: 100%;
+            /* 너비를 부모 컨테이너와 동일하게 설정 */
+        }
+
+        .card-title,
+        .modal-title,
+        .modal-text {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="home" class="page">
+        <div class="content">
+            <h1 class="typed">프로그래머 현준서의 포트폴리오입니다.</h1>
+        </div>
+    </div>
+
+    <div id="about" class="page">
+        <div class="content">
+            <div class="section-header">
+                <h2>ABOUT ME</h2>
+            </div>
+            <div class="about-me-section container">
+                <div class="row">
+                    <div class="col-md-4 info-item">
+                        <img src="Images/Human.png">
+                        <div class="text-content">
+                            <div class="title">이름</div>
+                            <div class="content">현준서</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <img src="Images/Birth.png">
+                        <div class="text-content">
+                            <div class="title">생년월일</div>
+                            <div class="content">2004.01.30</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <img src="Images/Email.png">
+                        <div class="text-content">
+                            <div class="title">연락처</div>
+                            <div class="content">hjs77143@gmail.com</div>
+                            <div class="content"><a href="https://www.github.com">Github</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <img src="Images/School.png">
+                        <div class="text-content">
+                            <div class="title">학력</div>
+                            <div class="content">2020.03 ~ 2023.02</div>
+                            <div class="content">경기게임마이스터고 졸업</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <img src="Images/Company.png">
+                        <div class="text-content">
+                            <div class="title">경력</div>
+                            <div class="content">2022.10(현장실습) ~ 2023.09</div>
+                            <div class="content">네비웍스 DX팀</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 info-item">
+                        <img src="Images/Trophy.png">
+                        <div class="text-content">
+                            <div class="title">수상 경력</div>
+                            <div class="content">2022 메타버스 경진대회 장려상</div>
+                            <div class="content">2030 스마트라이프 인 메타버스 경진대회 고등부 대상</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>SKILLS</h2>
+            </div>
+            <div class="skills-section container">
+                <div class="row">
+                    <div class="col-md-4 skill-item">
+                        <img src="Images/Unity2.png" alt="Unity">
+                        <p class="skill-text">Unity</p>
+                    </div>
+                    <div class="col-md-4 skill-item">
+                        <img src="Images/C Sharp.png" alt="C Sharp">
+                        <p class="skill-text">C#</p>
+                    </div>
+                    <div class="col-md-4 skill-item">
+                        <img src="Images/C++.png" alt="C++">
+                        <p class="skill-text">C++</p>
+                    </div>
+                    <div class="col-md-4 skill-item">
+                        <img src="Images/Git.png" alt="Git">
+                        <p class="skill-text">Git</p>
+                    </div>
+                    <div class="col-md-4 skill-item">
+                        <img src="Images/Github.png" alt="Github">
+                        <p class="skill-text">Github</p>
+                    </div>
+                    <div class="col-md-4 skill-item">
+                        <img src="Images/Figma.png" alt="Figma">
+                        <p class="skill-text">Figma</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="portfolio" class="page">
+        <div class="content">
+            <!-- 포트폴리오 텍스트 섹션 -->
+            <div class="portfolio-title">
+                PORTFOLIO
+            </div>
+
+            <!-- 선 추가 -->
+            <div class="container">
+                <div class="line-above-cards"></div> <!-- 선을 추가하는 div 요소 -->
+            </div>
+
+            <!-- 포트폴리오 카드 섹션 -->
+            <div class="container mt-5">
+                <div class="row g-3"> <!-- g-3 클래스로 카드 사이 간격 추가 -->
+                    <!-- 첫 번째 카드 -->
+                    <div class="col-md-4">
+                        <div class="card" data-image2="Images/Card1-Image2.jpg"
+                            data-image3="Images/card1-Image3.jpg"
+                            data-youtube-url="https://www.youtube.com/embed/Otrk8MM4_Fo?si=U0VOHS2vY1QuTZDS"
+                            data-detail-text="또 다른 나를 만나는 공간, 서울의 신대륙 '메타버스 서울'"
+                            data-links='[{"url": "https://play.google.com/store/apps/details?id=kr.go.seoul.metaverse&hl=ko&gl=US", "icon": "Images/PlayStoreIcon.png", "text": "플레이스토어 링크"}, {"url": "https://apps.apple.com/kr/app/%EB%A9%94%ED%83%80%EB%B2%84%EC%8A%A4-%EC%84%9C%EC%9A%B8/id1660175436", "icon": "Images/AppStoreIcon.jpg", "text": "앱스토어 링크"}, {"url": "https://metaverseseoul.kr/user/download", "icon": "Images/PC아이콘.png", "text": "PC 다운로드 링크"}]'>
+                            <img src="Images/Card1-Image.png" class="card-img-top" alt="Game Image">
+                            <div class="card-img-overlay">
+                                <p class="card-text">자세히 보기</p>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">메타버스 서울</h5>
+                                <div class="d-flex align-items-center mb-2">
+                                    <img src="Images/UnityLogo.png" alt="Unity Icon" class="unity-icon">
+                                    <h6 class="card-subtitle text-muted">Unity</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- 두 번째 카드 -->
+            <div class="col-md-4">
+                <div class="card" data-image2="Images/Card2-Image2.jpg" data-image3="Images/Card2-Image3.jpg"
+                    data-youtube-url="https://www.youtube.com/embed/nLIBiHlpv4k?si=tV7bMHgRFFv-tVs7"
+                    data-detail-text="사용자가 직접 Lua스크립트를 제작하고, 적용 가능하며, 자유롭게 모델을 불러와 나만의 공간을 제작할 수 있는 저작도구 서비스입니다. 저작도구에서 제작한 공간은 메타버스 서울의 공모전과 연동됩니다."
+                    data-links='[{"url": "https://metaverseseoul.kr/user/download", "icon": "Images/PC아이콘.png", "text": "PC 다운로드 링크"}]'>
+                    <img src="Images/Card2-Image.png" class="card-img-top" alt="Game Image">
+                    <div class="card-img-overlay">
+                        <p class="card-text">자세히 보기</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">메타버스 서울 저작도구</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="Images/UnityLogo.png" alt="Unity Icon" class="unity-icon">
+                            <h6 class="card-subtitle text-muted">Unity</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 세 번째 카드 -->
+            <div class="col-md-4">
+                <div class="card" data-image2="Images/Card3-Image2.jpg" data-image3="Images/Card3-Image3.png"
+                    data-youtube-url="https://www.youtube.com/embed/LNdpO4txWMY?si=W9tjYZ5SpD5zRxMj"
+                    data-detail-text="3학년 졸업작품 프로젝트입니다. 부부싸움으로 인하여 게임 속 세상으로 들어가게 된 남편. 게임 속 세상을 탈출 해야하는 3D 방탈출 게임입니다."
+                    data-links='[{"url": "https://github.com/hjs6082/discordproject", "icon": "Images/GithubLogo.png", "text": "깃허브 링크"}]'>
+                    <img src="Images/Card3-Image.png" class="card-img-top" alt="Game Image">
+                    <div class="card-img-overlay">
+                        <p class="card-text">자세히 보기</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">나랑 얘기좀해</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="Images/UnityLogo.png" alt="Unity Icon" class="unity-icon">
+                            <h6 class="card-subtitle text-muted">Unity</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 네 번째 카드 -->
+            <div class="col-md-4">
+                <div class="card" data-image2="Images/Card4-Image2.png" data-image3="Images/Card4-Image3.png"
+                    data-youtube-url="https://www.youtube.com/embed/a2fMe9y_yEY?si=qxhox3MHE7_skVte"
+                    data-detail-text="2022 메타버스 경진대회에서 15번상을 수상한 메타버스 직업 체험관 프로젝트입니다."
+                    data-links='[{"url": "https://www.roblox.com/games/10134624506/unnamed", "icon": "Images/RobloxLogo.png", "text": "플레이 링크"}]'>
+                    <img src="Images/Card4-Image.png" class="card-img-top" alt="Game Image">
+                    <div class="card-img-overlay">
+                        <p class="card-text">자세히 보기</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">스마트 라이프 인 메타버스 경진대회 수상작</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="Images/RobloxLogo.png" alt="Unity Icon" class="unity-icon">
+                            <h6 class="card-subtitle text-muted">Roblox</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 다섯 번째 카드 -->
+            <div class="col-md-4">
+                <div class="card" data-image2="Images/Card5-Image2.png" data-image3="Images/Card5-Image3.png"
+                    data-youtube-url="https://www.youtube.com/embed/9PvVR12KdrA?si=EMehMKLdYrRKRYjS"
+                    data-detail-text="2030 스마트 라이프 인 메타버스 경진대회 고등부 대상을 수상한 미래 직업 체험관 프로젝트입니다."
+                    data-links='[{"url": "https://www.roblox.com/games/7626584521/unnamed", "icon": "Images/RobloxLogo.png", "text": "플레이 링크"}]'>
+                    <img src="Images/Card5-Image.png" class="card-img-top" alt="Game Image">
+                    <div class="card-img-overlay">
+                        <p class="card-text">자세히 보기</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">메타버스 경진대회 수상작 - 직업 체험 월드</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="Images/RobloxLogo.png" alt="Unity Icon" class="unity-icon">
+                            <h6 class="card-subtitle text-muted">Roblox</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 여섯 번째 카드 -->
+            <div class="col-md-4">
+                <div class="card" data-image2="Images/Card6-Image2.png" data-image3="Images/Card6-Image3.png"
+                    data-youtube-url="https://www.youtube.com/embed/33NdoJIei3I?si=LkFjGwZ4ZoOQqLVM"
+                    data-detail-text="GGM World는 경기 게임마이스터고의 내부와 만든 게임들을 제페토 안에서 보여주며, 경기게임마이스터고의 학생들이 만든 포트폴리오, 학교 내부, 그리고 그 안에서 각 공간에 도착할때마다 발생하는 미니게임을 통하여 학교를 체험하고 구경할 수 있는 프로젝트입니다."
+                    data-links='[{"url": "https://world.zepeto.me/ko/detail/VcbLI3wK87MtgC7xZ1T092m", "icon": "Images/ZepetoLogo.png", "text": "플레이 링크"}]'>
+                    <img src="Images/Card6-Image.png" class="card-img-top" alt="Game Image">
+                    <div class="card-img-overlay">
+                        <p class="card-text">자세히 보기</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">GGM WORLD</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="Images/ZepetoLogo.png" alt="Unity Icon" class="unity-icon">
+                            <h6 class="card-subtitle text-muted">Zepeto</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <!-- 모달 섹션 -->
+            <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cardModalLabel">게임 정보</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div id="mediaContainer" class="media-container">
+                                        <img id="modalImage" src="#" class="img-fluid" alt="Card Image"
+                                            style="display: none;">
+                                        <!-- iframe은 동적으로 추가됩니다 -->
+                                    </div>
+                                    <div class="mt-3 d-flex justify-content-center">
+                                        <button type="button" class="btn btn-circle btn-outline-dark active"
+                                            id="btnChangeImage1"></button>
+                                        <div style="width: 5px;"></div>
+                                        <button type="button" class="btn btn-circle btn-outline-dark"
+                                            id="btnChangeImage2"></button>
+                                        <div style="width: 5px;"></div>
+                                        <button type="button" class="btn btn-circle btn-outline-dark"
+                                            id="btnChangeImage3"></button>
+                                        <div style="width: 5px;"></div>
+                                        <button type="button" class="btn btn-circle btn-outline-dark"
+                                            id="btnChangeImage4"></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 id="modalTitle" class="modal-title"></h5>
+                                    <h6 id="modalSubtitle" class="modal-subtitle mb-2 text-muted"></h6>
+                                    <p id="modalContent" class="modal-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#portfolio">포트폴리오</a></li>
+        </ul>
+    </nav>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollToPlugin.min.js"></script>
+    <script>
+
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const youtubeUrl = card.getAttribute('data-youtube-url');
+                const imageSrc = card.getAttribute('data-image1'); // 카드의 기본 이미지
+                const image2Src = card.getAttribute('data-image2'); // 추가 이미지 1
+                const image3Src = card.getAttribute('data-image3'); // 추가 이미지 2
+                const title = card.querySelector('.card-title').innerText;
+                const subtitle = card.querySelector('.card-subtitle').innerText;
+                const content = card.querySelector('.card-text').innerText;
+
+                const modalBody = document.querySelector('.modal-body');
+                let iframe = modalBody.querySelector('iframe');
+                const modalImage = document.getElementById('modalImage');
+
+                const existingLinksContainer = document.querySelector('.links-container');
+                if (existingLinksContainer) {
+                    existingLinksContainer.remove();
+                }
+
+                // 링크 정보 추출 및 버튼 생성
+                const linksData = JSON.parse(card.getAttribute('data-links') || '[]');
+                const linksContainer = document.createElement('div'); // 링크를 담을 컨테이너 생성
+                linksContainer.className = 'links-container'; // 스타일 적용을 위한 클래스 추가
+
+                // 링크 버튼 생성 로직
+                linksData.forEach((link, index) => {
+                    const linkButton = document.createElement('button');
+                    linkButton.className = 'link-button'; // CSS를 통해 스타일링 가능
+                    linkButton.innerHTML = `<img src="${link.icon}" alt="Icon" style="width: 16px; height: 16px; vertical-align: middle;"> <span>${link.text}</span>`; // 아이콘과 텍스트 함께 표시
+                    linkButton.onclick = () => window.open(link.url, '_blank'); // 클릭 시 새 탭에서 URL 열기
+
+                    if (index !== linksData.length - 1) {
+                        linkButton.style.marginRight = '5px';
+                    }
+
+                    linksContainer.appendChild(linkButton);
+                });
+
+                // 링크 컨테이너를 modalSubtitle과 modalContent 사이에 추가
+                const modalSubtitle = document.getElementById('modalSubtitle');
+                modalSubtitle.parentNode.insertBefore(linksContainer, modalSubtitle.nextSibling);
+
+                // iframe 삭제 및 초기화 함수
+                function removeIframe() {
+                    if (iframe) {
+                        iframe.remove();
+                        iframe = null;
+                    }
+                }
+
+                // 버튼 활성화 상태 설정 함수
+                function setActiveButton(button) {
+                    document.querySelectorAll('.btn-circle').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+                }
+
+                // 첫 번째 버튼 클릭 시 유튜브 영상 재생
+                document.getElementById('btnChangeImage1').onclick = function () {
+                    removeIframe();
+                    modalImage.style.display = 'none'; // 이미지 숨김
+                    // iframe 생성 로직
+                    if (!iframe) {
+                        iframe = document.createElement('iframe');
+                        iframe.setAttribute('src', youtubeUrl + '?autoplay=1');
+                        iframe.style.width = '100%'; // 또는 고정 너비 지정
+                        iframe.style.height = '315px'; // 또는 고정 높이 지정
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                        iframe.setAttribute('allowfullscreen', 'true');
+                        document.getElementById('mediaContainer').appendChild(iframe); // mediaContainer에 iframe 추가
+                    } else {
+                        iframe.setAttribute('src', youtubeUrl + '?autoplay=1');
+                    }
+                    setActiveButton(this);
+                };
+
+                // 두 번째 버튼 클릭 시 클릭한 카드의 이미지 표시
+                document.getElementById('btnChangeImage2').onclick = function () {
+                    removeIframe();
+                    // 현재 클릭한 카드의 이미지로 모달 이미지 소스를 변경합니다.
+                    modalImage.src = card.querySelector('.card-img-top').src;
+                    modalImage.style.display = 'block';
+                    setActiveButton(this);
+                };
+
+                // 세 번째 버튼 클릭 시 추가 이미지 1 표시
+                document.getElementById('btnChangeImage3').onclick = function () {
+                    removeIframe();
+                    modalImage.src = image2Src;
+                    modalImage.style.display = 'block';
+                    setActiveButton(this);
+                };
+
+                // 네 번째 버튼 클릭 시 추가 이미지 2 표시
+                document.getElementById('btnChangeImage4').onclick = function () {
+                    removeIframe();
+                    modalImage.src = image3Src;
+                    modalImage.style.display = 'block';
+                    setActiveButton(this);
+                };
+
+                // 모달 데이터 설정
+                document.getElementById('modalTitle').innerText = title;
+                document.getElementById('modalSubtitle').innerText = subtitle;
+                document.getElementById('modalContent').innerText = content;
+
+                const detailText = card.getAttribute('data-detail-text'); // 카드에 설정된 상세 설명 텍스트를 가져옵니다.
+                document.getElementById('modalContent').innerText = detailText; // 모달의 상세 설명 부분을 업데이트합니다.
+
+                // 모달 초기화 및 표시
+                document.getElementById('btnChangeImage1').click(); // 첫 번째 버튼을 프로그래밍 방식으로 클릭하여 초기화
+                const modal = new bootstrap.Modal(document.getElementById('cardModal'));
+                modal.show();
+            });
+        });
+
+        let isScrolling = false;
+
+        window.addEventListener('wheel', function (e) {
+            e.preventDefault(); // 기본 스크롤 동작 방지
+            if (isScrolling) return;
+            isScrolling = true;
+
+            let direction = e.deltaY > 0 ? 1 : -1;
+            let pages = document.querySelectorAll('.page');
+            let currentPageIndex = getCurrentPageIndex(pages);
+            let nextPageIndex = currentPageIndex + direction;
+
+            if (nextPageIndex < 0) nextPageIndex = 0;
+            if (nextPageIndex >= pages.length) nextPageIndex = pages.length - 1;
+
+            // GSAP의 scrollTo 플러그인 사용
+            gsap.to(window, {
+                scrollTo: {
+                    y: pages[nextPageIndex].offsetTop,
+                    autoKill: false
+                },
+                duration: 0.01 // 애니메이션 지속 시간 (초)
+            });
+
+            setTimeout(() => { isScrolling = false; }, 1000); // 스크롤 이벤트 빈도 제한
+        }, { passive: false });
+
+        function getCurrentPageIndex(pages) {
+            let viewportHeight = window.innerHeight;
+            for (let i = 0; i < pages.length; i++) {
+                let pageTop = pages[i].getBoundingClientRect().top;
+                if (pageTop >= 0 && pageTop < viewportHeight) return i;
+            }
+            return 0;
+        }
+
+
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+
+</html>
